@@ -1,6 +1,9 @@
 .card-wrapper {
-    width: 100px;
+    width: 200px;
     height: 100px;
+    color: hsl(var(--primary-foreground));
 
-    color: hsl(var(--primary-foreground))
+    &:hover{
+        cursor: pointer;
+    }
 }

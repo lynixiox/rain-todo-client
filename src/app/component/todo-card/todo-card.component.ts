@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Store } from '@ngxs/store';
 
 @Component({
@@ -10,4 +10,5 @@ import { Store } from '@ngxs/store';
 })
 export class TodoCardComponent {
 
+  @Input() title!: String;
 }

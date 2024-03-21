@@ -1,5 +1,5 @@
 <div class="listContainer">
     <div *ngFor="let item of todos">
-        {{item.title}}
+        <app-todo-card [title]="item.title"></app-todo-card>
     </div>
 </div>
