@@ -10,6 +10,4 @@ import { Store } from '@ngxs/store';
 })
 export class TodoCardComponent {
 
-
-
 }

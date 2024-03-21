@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
-import { TodoCardComponent } from '../todo-card/todo-card.component';
-import { Store } from '@ngxs/store';
-import { Observable } from 'rxjs';
 import { TodoModel } from '../../types';
+import { Observable } from 'rxjs';
+import { Store } from '@ngxs/store';
 import { TodoSelectors } from '../../ngxs/selectors/todo-selector';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-dashboard-cards',
+  selector: 'app-todo-list',
   standalone: true,
-  imports: [TodoCardComponent],
-  templateUrl: './dashboard-cards.component.html',
-  styleUrl: './dashboard-cards.component.scss'
+  imports: [CommonModule],
+  templateUrl: './todo-list.component.html',
+  styleUrl: './todo-list.component.scss'
 })
-export class DashboardCardsComponent {
+export class TodoListComponent {
   todos$!: Observable<TodoModel[]> 
   todos: TodoModel[] = [];
 
@@ -24,5 +24,4 @@ export class DashboardCardsComponent {
       this.todos = active
     });
   }
-  
 }

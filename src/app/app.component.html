@@ -1,8 +1,6 @@
-<main class="main">
-  <div class="content">
-    <button class="btn-primary" type="button" (click)="AddItem()">+ Add Item</button>
-    <app-todo-card/>
-    </div>
-</main>
+<app-header></app-header>
 
-<router-outlet />
+<div class="wrapper">
+<app-todo-modal *ngIf="modelActive"/>
+  <router-outlet />
+</div>

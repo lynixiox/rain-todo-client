@@ -8,6 +8,7 @@ export interface TodoModel {
 
 export interface TodoStateModel {
     items: TodoModel[];
+    completed: TodoModel[];
 }
 
 export interface Options {
@@ -31,4 +32,13 @@ export interface PaginationParams {
     [param: string]: |string | number| boolean| ReadonlyArray<string | number| boolean>
     page: number;
     perPage: number
+}
+
+
+export interface ModalStateModel{
+    showModal: boolean
+}
+
+export interface ModalModel{
+    showModel: boolean
 }

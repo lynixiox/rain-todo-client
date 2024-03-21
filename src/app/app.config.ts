@@ -6,7 +6,9 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient } from '@angular/common/http';
 import { NgxsModule } from '@ngxs/store';
 import { TodoState } from './ngxs/state/todo-state';
+import { ModalState } from './ngxs/state/modal-state';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideClientHydration(), provideHttpClient(), importProvidersFrom(NgxsModule.forRoot([TodoState]))]
+  providers: [provideRouter(routes), provideClientHydration(), provideHttpClient(), importProvidersFrom(NgxsModule.forRoot([TodoState, ModalState]), NgxsReduxDevtoolsPluginModule.forRoot())]
 };

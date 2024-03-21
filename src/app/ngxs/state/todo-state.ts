@@ -10,13 +10,12 @@ import { response } from "express";
     name: "todo",
     defaults: {
         items:[],
+        completed:[]
     }
 })
 @Injectable()
 export class TodoState {
-    constructor(private todoService: TodoService){
-
-    }
+    constructor(private todoService: TodoService){}
 
     @Action(AddItemAction)
     addItem(ctx: StateContext<TodoStateModel>, action: AddItemAction) {
@@ -37,19 +36,26 @@ export class TodoState {
             ...state,
             items: [...state.items, todoItem]
         })
-
+        
         console.log(ctx.getState());
     }
 
     @Action(GetTodos)
     doGetTodos(ctx: StateContext<TodoStateModel>){
-        return this.todoService.getTodos("http://localhost:8080/api/v1/todos/all", {page: 0, perPage: 10}).subscribe((todo)=> {
+        return this.todoService.getTodos("http://localhost:8080/api/v1/todos/all", {page: 0, perPage: 10}).subscribe((todos)=> {
             const state = ctx.getState()
+
+            const completedTodos: TodoModel[] =[]
+            todos.forEach(todo => {
+                if(todo.isComplete){
+                    completedTodos.push(todo)
+                }
+            });
             ctx.setState({
                 ...state,
-                items: todo    
+                items: todos,
+                completed: completedTodos
             })
-            console.log(ctx.getState());
         }
         )
     }

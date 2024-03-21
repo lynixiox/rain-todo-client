@@ -1,6 +1,39 @@
 /* You can add global styles to this file, and also import other style files */
 html, body{
     height: 100vh;
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body, app-root{
+    height: 100%;
+}
+
+app-root{
+    display: flex;
+    flex-direction: column;
+}
+
+.row{
+    display: flex;
+    flex-direction: row;
+}
+
+.shadow-md{
+    --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-colored: 0 4px 6px -1px var(--shadow-color), 0 2px 4px -2px var(--shadow-color);
+    box-shadow: var(--ring-offset-shadow, 0 0 #0000), var(--ring-shadow, 0 0 #0000), var(--shadow);
+}
+
+.shadow-lg{
+        --shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        --shadow-colored: 0 10px 15px -3px var(--shadow-color), 0 4px 6px -4px var(--shadow-color);
+        box-shadow: var(--ring-offset-shadow, 0 0 #0000), var(--ring-shadow, 0 0 #0000), var(--shadow);
+}
+
+.rounded-md {
+    border-radius: calc(var(--radius) - 2px);
 }
 
 .btn-primary {

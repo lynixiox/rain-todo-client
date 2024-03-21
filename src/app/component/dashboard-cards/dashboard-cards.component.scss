@@ -1,0 +1,29 @@
+.dashboardHeader{
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    margin-bottom: 1rem;
+}
+.cardsContainer{
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.cardContainer{
+    width: 200;
+    height: 100px;
+}
+
+.cardHeader{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 2rem;
+    padding: 1rem;
+}
+
+.cardContent{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
