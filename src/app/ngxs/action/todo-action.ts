@@ -8,3 +8,6 @@ export class ToggleItemAction {
     constructor(public name: string){}
 }
 
+export class GetTodos {
+    static readonly type = "[TODO page] Get all Todos"
+}

@@ -10,7 +10,7 @@ export class TodoService {
 
   constructor(private apiService: ApiService) { }
 
-  getTodos = (url: string, params: PaginationParams): Observable<TodoModel> => {
+  getTodos = (url: string, params: PaginationParams): Observable<TodoModel[]> => {
     return this.apiService.get(url, {
       params,
       responseType: 'json',

@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TodoCardComponent } from "./component/todo-card/todo-card.component";
 import { TodoService } from './services/todo.service';
-import { Store } from '@ngxs/store';
+import { NgxsModule, Store } from '@ngxs/store';
+import { GetTodos } from './ngxs/action/todo-action';
 
 @Component({
     selector: 'app-root',
@@ -16,6 +17,9 @@ export class AppComponent {
 
   constructor(private store: Store){}
 
+  ngOnInit() {
+    this.store.dispatch(new GetTodos)
+  }
   
   AddItem() {
     console.log("clicked");
