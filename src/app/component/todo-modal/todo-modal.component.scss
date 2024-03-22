@@ -15,4 +15,40 @@
     width: 40%;
     height: 600px;
     background: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+.header{
+    display: flex;
+    justify-content:space-between;
+    padding: 1rem;
+    font-size: 25px;
+    font-weight: 400;
+    font-family: 'Lato', sans-serif;
+}
+
+.icon{
+    &:hover{
+        cursor: pointer;
+    }
+}
+.content{
+    padding: 10px;
+}
+.actions{
+    padding: 10px;
+}
+.taskInput{
+    display: block;
+    width: 15rem;
+    border-width: 1px;
+    border-color: #e3e3e3;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    outline-width: 2px;
+    .placeholder\:text-gray-500::placeholder {
+        --tw-text-opacity: 1;
+        color: rgb(107 114 128 / var(--tw-text-opacity));
+    }
 }

@@ -1,0 +1,60 @@
+<div class="board">
+    <div class="boardWrapper">
+        <div class="boardColumns">
+
+        <div class="boardColumn shadow-lg">
+            <div class="taskHeader">
+                    <h2 class="columnTitle">To do</h2>
+                <button  (click)="addTodo()" class="btn-primary">+ Create Task</button>
+            </div>
+
+        
+            <div
+              cdkDropList
+              #todoList="cdkDropList"
+              [cdkDropListData]="todos"
+              [cdkDropListConnectedTo]="[doneList]"
+              class="taskList shadow-md"
+              (cdkDropListDropped)="drop($event)">
+              @for (item of todos; track item) {
+                <div class="task" cdkDrag>{{item.title}}</div>
+              }
+            </div>
+          </div>
+          <div class="boardColumn shadow-lg">
+            <div class="taskHeader">
+                    <h2 class="columnTitle">In Progress</h2>
+            </div>
+            <div
+              cdkDropList
+              #doneList="cdkDropList"
+              [cdkDropListData]="inProgress"
+              [cdkDropListConnectedTo]="[todoList]"
+              class="taskList"
+              (cdkDropListDropped)="drop($event)">
+              @for (item of inProgress; track item) {
+                <div class="task" cdkDrag>{{item.title}}</div>
+              }
+            </div>
+          </div>
+          <div class="boardColumn shadow-lg">
+            <div class="taskHeader">
+                    <h2 class="columnTitle">Completed</h2>
+            </div>
+            <div
+              cdkDropList
+              #doneList="cdkDropList"
+              [cdkDropListData]="inProgress"
+              [cdkDropListConnectedTo]="[todoList]"
+              class="taskList"
+              (cdkDropListDropped)="drop($event)">
+              @for (item of inProgress; track item) {
+                <div class="task" cdkDrag>{{item.title}}</div>
+              }
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+  
+  

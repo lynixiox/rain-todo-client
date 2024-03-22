@@ -1,0 +1,102 @@
+
+    .boardWrapper {
+        display: flex;
+        flex-grow: 1;
+        overflow-x: auto;
+
+        .boardColumns {
+            display: flex;
+            flex-grow: 1;
+
+            .boardColumn {
+                display: flex;
+                flex-direction: column;
+                flex-grow: 1;
+                flex-basis: 0; // to force the columns to all be the same size, regardless of content
+
+                min-width: 300px;
+                margin: 50px;
+                padding: 25px;
+
+                border-radius: 4px;
+
+                background: rgba(white, 0.5);
+
+                &:not(:first-child) {
+                    margin-left: 0;
+                }
+
+                .columnTitle {
+                    font-size: 30px;
+                    font-weight: 600;
+                    font-family: 'Lato', sans-serif;
+                    text-transform: uppercase;
+                    margin-bottom: 20px;
+                }
+            }
+        }
+    }
+
+
+.taskHeader{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    width: 100%;
+}
+.taskList{
+  min-height: 60px;
+  border: 1px solid rgba($color: #989898, $alpha: 0.1);
+
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+  display: block;
+  padding: 1rem;
+}
+
+
+
+.task {
+    display: flex;
+    padding: 15px 12px;
+    background: white;
+    border-bottom: solid 1px #ddd;
+    border-radius: 4px;
+    font-weight: 400;
+    font-family: 'Lato', sans-serif;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.05),
+    0 3px 14px 2px rgba(0, 0, 0, 0.05);
+    &:hover{
+        cursor: pointer;
+        border: 1px solid purple;
+    }
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+              0 8px 10px 1px rgba(0, 0, 0, 0.14),
+              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.task:last-child {
+  border: none;
+}
+
+.taskList.cdk-drop-list-dragging .task:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}

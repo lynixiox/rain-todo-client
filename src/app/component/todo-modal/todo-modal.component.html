@@ -1,9 +1,10 @@
 <div id="container" class="shadow-md rounded-md">
     <div class="header">
         Create A New Task 
+        <ng-icon class="icon" name="heroXMark" size=30 (click)="close()"/>
     </div>
     <div class="content">
-        This is some content
+        <input class="taskInput rounded-md" placeholder="What needs to be done?"/>
     </div>
     <div class="actions">
         <button class="btn-primary">+ Create Task</button>

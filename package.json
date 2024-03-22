@@ -12,6 +12,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^17.3.0",
+    "@angular/cdk": "^17.3.1",
     "@angular/common": "^17.3.0",
     "@angular/compiler": "^17.3.0",
     "@angular/core": "^17.3.0",
@@ -21,6 +22,8 @@
     "@angular/platform-server": "^17.3.0",
     "@angular/router": "^17.3.0",
     "@angular/ssr": "^17.3.0",
+    "@ng-icons/core": "^27.2.0",
+    "@ng-icons/heroicons": "^27.2.0",
     "@ngxs/devtools-plugin": "^3.8.2-dev.master-09bece1",
     "@ngxs/logger-plugin": "^3.8.2-dev.master-09bece1",
     "@ngxs/store": "^3.8.2-dev.master-09bece1",
