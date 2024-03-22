@@ -30,3 +30,4 @@ export class SetActiveTodo{
     static readonly type = "[TODO page] Set active todo"
     constructor(public activeTodo: TodoModel){}
 }
+
