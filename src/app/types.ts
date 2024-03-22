@@ -10,6 +10,7 @@ export interface TodoStateModel {
     todo: TodoModel[];
     inProgress: TodoModel[];
     completed: TodoModel[];
+    activeTodo?: TodoModel;
 }
 
 export interface Options {

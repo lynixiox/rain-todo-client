@@ -1,11 +1,12 @@
 import { Injectable } from "@angular/core";
-import { Action, State, StateContext, UpdateState } from "@ngxs/store";
+import { Action, State, StateContext, UpdateState, setValue } from "@ngxs/store";
 import { TodoModel, TodoStateModel } from "../../types";
-import { AddItemAction, GetTodos, UpdateTaskState, UpdateTaskStatus } from "../action/todo-action";
+import { AddItemAction, GetTodos, SetActiveTodo, UpdateTaskState, UpdateTaskStatus } from "../action/todo-action";
 import { TodoService } from "../../services/todo.service";
 import { tap } from "rxjs";
 import { response } from "express";
 import { patch, updateItem } from "@ngxs/store/operators";
+import { HttpClient } from "@angular/common/http";
 
 @State<TodoStateModel>({
     name: "tasks",
@@ -30,18 +31,16 @@ import { patch, updateItem } from "@ngxs/store/operators";
                 title: "Create The Database",
                 status: "inProgress"
             }
-        ]
+        ],
     }
 })
 @Injectable()
 export class TodoState {
-    constructor(private todoService: TodoService){}
-
+    constructor(private todoService: TodoService, private http: HttpClient){}
     @Action(AddItemAction)
     addItem(ctx: StateContext<TodoStateModel>, action: AddItemAction) {
         
         const {name} = action
-
         const state = ctx.getState()
         const todoItem: TodoModel = {
             status:'todo',
@@ -51,6 +50,14 @@ export class TodoState {
         ctx.setState({
             ...state,
             todo: [...state.todo, todoItem]
+        })
+
+        let body = {
+            "title": name,
+            "status": "TODO"
+        }
+        this.http.post<TodoModel>('http://localhost:8080/api/v1/todos/create', body).subscribe(data => {
+            console.log(data)
         })
         
         console.log(ctx.getState());
@@ -103,7 +110,14 @@ export class TodoState {
         })
     }
 
+    @Action(SetActiveTodo)
+    setActiveTodo(ctx: StateContext<TodoStateModel>, action:SetActiveTodo) {
+        
+        const {activeTodo} = action
 
+    }
+    
+    
     @Action(GetTodos)
     doGetTodos(ctx: StateContext<TodoStateModel>){
         return this.todoService.getTodos("http://localhost:8080/api/v1/todos/all", {page: 0, perPage: 10}).subscribe((todos)=> {

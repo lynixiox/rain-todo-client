@@ -24,5 +24,9 @@ export class UpdateTaskStatus{
 export class UpdateTaskState{
     static readonly type = "[TODO page] Update Status of Task"
     constructor(public newState: TodoStateModel){}
+}
 
+export class SetActiveTodo{
+    static readonly type = "[TODO page] Set active todo"
+    constructor(public activeTodo: TodoModel){}
 }

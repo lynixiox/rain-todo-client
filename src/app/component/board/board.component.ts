@@ -50,7 +50,9 @@ export class BoardComponent {
     this.store.dispatch(new ToggleModalState)
   }
 
-
+  openEditor(object: TodoModel){
+    console.log(object)
+  }
   drop(event: CdkDragDrop<TodoModel[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
