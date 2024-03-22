@@ -6,7 +6,7 @@ import { ToggleModalState } from "../action/modal-action";
 @State<ModalStateModel>({
     name: "modal",
     defaults: {
-        showModal: true
+        showModal: false
     }
 })
 @Injectable()

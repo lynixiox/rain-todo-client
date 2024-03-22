@@ -1,13 +1,14 @@
 import { HttpContext, HttpHeaders, HttpParams } from "@angular/common/http";
 
 export interface TodoModel {
-    id: string,
+    id?: string,
     title: string,
-    isComplete: boolean
+    status: 'todo' | 'inProgress' | 'completed'
 }
 
 export interface TodoStateModel {
-    items: TodoModel[];
+    todo: TodoModel[];
+    inProgress: TodoModel[];
     completed: TodoModel[];
 }
 

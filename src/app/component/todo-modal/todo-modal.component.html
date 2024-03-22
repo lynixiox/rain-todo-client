@@ -4,9 +4,9 @@
         <ng-icon class="icon" name="heroXMark" size=30 (click)="close()"/>
     </div>
     <div class="content">
-        <input class="taskInput rounded-md" placeholder="What needs to be done?"/>
+        <input #input class="taskInput rounded-md" placeholder="What needs to be done?"/>
     </div>
     <div class="actions">
-        <button class="btn-primary">+ Create Task</button>
+        <button (click)="addItem(input.value)" class="btn-primary">+ Create Task</button>
     </div>
 </div>

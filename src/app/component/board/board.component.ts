@@ -1,15 +1,14 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { TodoModel } from '../../types';
+import { TodoModel, TodoStateModel } from '../../types';
 import { Store } from '@ngxs/store';
 import { TodoSelectors } from '../../ngxs/selectors/todo-selector';
 import { CommonModule } from '@angular/common';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Board } from '../../models/board.model';
-import { Column } from '../../models/column.model';
+import { CdkDragDrop, CdkDragMove, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import {DragDropModule} from "@angular/cdk/drag-drop"
 import { TodoCardComponent } from '../todo-card/todo-card.component';
 import { ToggleModalState } from '../../ngxs/action/modal-action';
+import { UpdateTaskState, UpdateTaskStatus } from '../../ngxs/action/todo-action';
 @Component({
   selector: 'app-board',
   standalone: true,
@@ -19,24 +18,30 @@ import { ToggleModalState } from '../../ngxs/action/modal-action';
 })
 export class BoardComponent {
   todos$!: Observable<TodoModel[]> 
-  todos: TodoModel[]= [{id:"nothing", isComplete: false, title: "test"}];
-  inProgress: TodoModel[]= [{id:"nothing", isComplete: false, title: "test"}];
+  completed$!: Observable<TodoModel[]>
+  inProgress$!: Observable<TodoModel[]>
+  completed: TodoModel[]=[];
+  todos: TodoModel[]= [];
+  inProgress: TodoModel[]= [];
 
 
   constructor(private store : Store){}
 
-  board: Board = new Board('Test Board', [
-    new Column('Ideas',this.todos),
-    new Column('Research',[]),
-    new Column('Todo', []),
-    new Column('Done', [])
-  ]);
-
   ngOnInit() {
     this.todos$ = this.store.select(TodoSelectors.todoItems);
+    this.completed$ = this.store.select(TodoSelectors.completeItems);
+    this.inProgress$ = this.store.select(TodoSelectors.inProgress)
     this.todos$.subscribe(todoList => {
       this.todos = todoList
     });
+
+    this.completed$.subscribe(completedList => {
+      this.completed = completedList;
+    })
+
+    this.inProgress$.subscribe(inProgressList => {
+      this.inProgress = inProgressList;
+    })
 
     
   }
@@ -45,14 +50,32 @@ export class BoardComponent {
     this.store.dispatch(new ToggleModalState)
   }
 
+
   drop(event: CdkDragDrop<TodoModel[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
+
       transferArrayItem(event.previousContainer.data,
         event.container.data,
         event.previousIndex,
         event.currentIndex);
+        this.todos.forEach(todo => {
+            todo.status="todo"
+        });
+        this.completed.forEach(complete => {
+          complete.status="completed"
+        });
+        this.inProgress.forEach(inProgress=>{
+          inProgress.status="inProgress"
+        })
+        const newState: TodoStateModel = {
+          todo: this.todos,
+          completed: this.completed,
+          inProgress: this.inProgress
+        }
+      this.store.dispatch(new UpdateTaskState(newState))
+
     }
   }
 

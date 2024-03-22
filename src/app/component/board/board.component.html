@@ -15,6 +15,7 @@
               [cdkDropListData]="todos"
               [cdkDropListConnectedTo]="[doneList]"
               class="taskList shadow-md"
+              id="todo"
               (cdkDropListDropped)="drop($event)">
               @for (item of todos; track item) {
                 <div class="task" cdkDrag>{{item.title}}</div>
@@ -29,8 +30,9 @@
               cdkDropList
               #doneList="cdkDropList"
               [cdkDropListData]="inProgress"
-              [cdkDropListConnectedTo]="[todoList]"
-              class="taskList"
+              [cdkDropListConnectedTo]="[todoList, completeList]"
+              class="taskList shadow-md"
+              id="inProgress"
               (cdkDropListDropped)="drop($event)">
               @for (item of inProgress; track item) {
                 <div class="task" cdkDrag>{{item.title}}</div>
@@ -43,13 +45,14 @@
             </div>
             <div
               cdkDropList
-              #doneList="cdkDropList"
-              [cdkDropListData]="inProgress"
-              [cdkDropListConnectedTo]="[todoList]"
-              class="taskList"
+              #completeList="cdkDropList"
+              [cdkDropListData]="completed"
+              [cdkDropListConnectedTo]="[todoList, doneList]"
+              class="taskList shadow-md"
+              id="completed"
               (cdkDropListDropped)="drop($event)">
-              @for (item of inProgress; track item) {
-                <div class="task" cdkDrag>{{item.title}}</div>
+              @for (item of completed; track item) {
+                <div class="task"  cdkDrag>{{item.title}}</div>
               }
             </div>
           </div>

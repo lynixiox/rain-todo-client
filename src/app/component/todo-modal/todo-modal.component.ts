@@ -4,6 +4,7 @@ import { NgIconsModule } from '@ng-icons/core';
 import {heroXMark} from "@ng-icons/heroicons/outline"
 import { Store } from '@ngxs/store';
 import { ToggleModalState } from '../../ngxs/action/modal-action';
+import { AddItemAction } from '../../ngxs/action/todo-action';
 @Component({
   selector: 'app-todo-modal',
   standalone: true,
@@ -16,5 +17,10 @@ export class TodoModalComponent {
 
   close() {
     this.store.dispatch(new ToggleModalState)
+  }
+
+  addItem(task: string){
+    this.store.dispatch(new AddItemAction(task))
+    this.store.dispatch(new ToggleModalState);
   }
 }

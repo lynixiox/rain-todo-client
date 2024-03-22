@@ -7,7 +7,7 @@
             Amount of Tasks
         </div>
         <div class="cardContent">
-            {{todos.length}}
+            {{todos.length + completed.length + inProgress.length}}
         </div>
     </div>
     <div class="cardContainer rounded-md shadow-md" >
@@ -15,7 +15,7 @@
             Complete Tasks
         </div>
         <div class="cardContent">
-            {{todos.length}}
+            {{completed.length}}
         </div>
     </div>
     <div class="cardContainer rounded-md shadow-md" >
@@ -23,7 +23,7 @@
             Overdue Tasks
         </div>
         <div class="cardContent">
-            {{todos.length}}
+            {{inProgress.length}}
         </div>
     </div>
 </div>

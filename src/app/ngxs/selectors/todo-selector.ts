@@ -5,6 +5,16 @@ import { TodoModel, TodoStateModel } from "../../types";
 export class TodoSelectors{ 
     @Selector([TodoState])
     static todoItems(state: TodoStateModel): TodoModel[]{
-        return state.items
+        return state.todo
+    }
+
+    @Selector([TodoState])
+    static completeItems(state: TodoStateModel): TodoModel[]{
+        return state.completed
+    }
+
+    @Selector([TodoState])
+    static inProgress(state: TodoStateModel): TodoModel[]{
+        return state.inProgress
     }
 }

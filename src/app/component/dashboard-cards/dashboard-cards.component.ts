@@ -14,15 +14,28 @@ import { TodoSelectors } from '../../ngxs/selectors/todo-selector';
 })
 export class DashboardCardsComponent {
   todos$!: Observable<TodoModel[]> 
-  todos: TodoModel[] = [];
+  completed$!: Observable<TodoModel[]>
+  inProgress$!: Observable<TodoModel[]>
+  completed: TodoModel[]=[];
+  todos: TodoModel[]= [];
+  inProgress: TodoModel[]= [];
 
   constructor(private store : Store){}
   
   ngOnInit() {
     this.todos$ = this.store.select(TodoSelectors.todoItems);
+    this.completed$ = this.store.select(TodoSelectors.completeItems);
+    this.inProgress$ = this.store.select(TodoSelectors.inProgress)
     this.todos$.subscribe(active => {
       this.todos = active
     });
+    this.completed$.subscribe(completedList => {
+      this.completed = completedList;
+    })
+
+    this.inProgress$.subscribe(inProgressList => {
+      this.inProgress = inProgressList;
+    })
   }
   
 }
