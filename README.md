@@ -2,8 +2,12 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.0.
 
-## Development server
+# Development server
+
+# Option 1
 ### Install Bun
+
+If you want to try run the project on bun run the following 
 ```
 curl -fsSL https://bun.sh/install | bash  
 ```
@@ -13,6 +17,15 @@ bun install
 
 ```
 bun run start
+```
+
+# Option 2
+run the application with 
+```
+npm install
+```
+```
+ng serve
 ```
 
 Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
