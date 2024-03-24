@@ -1,0 +1,11 @@
+<div id="container" class="shadow-md rounded-md">
+    <div class="header">
+        Edit Task
+        <ng-icon class="icon" name="heroXMark" size=30 (click)="close()"/>
+    </div>
+    <div class="content">
+        <input #input class="taskInput rounded-md" value={{taskTitle}}/>
+        <button (click)="saveEdit(input.value)" class="btn-primary">Save Changes</button>
+    </div>
+
+</div>

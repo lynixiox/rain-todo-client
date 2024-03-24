@@ -13,23 +13,30 @@ import { NgFor, NgIf } from '@angular/common';
 import { ModalSelectors } from './ngxs/selectors/modal-selectors';
 import { TodoSelectors } from './ngxs/selectors/todo-selector';
 import { TodoModel } from './types';
+import { TodoEditModalComponent } from './component/todo-edit-modal/todo-edit-modal.component';
 
 @Component({
     selector: 'app-root',
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
-    imports: [RouterOutlet, TodoCardComponent, HeaderComponent, TodoModalComponent, NgIf, NgFor],
+    imports: [RouterOutlet, TodoCardComponent, HeaderComponent, TodoModalComponent, NgIf, NgFor, TodoEditModalComponent],
 })
 export class AppComponent  {
   title = 'todo-client';
   modelActive = false
   modelActive$!: Observable<boolean>
+  editModelActive = false
+  editModelActive$!: Observable<{ show: boolean; todo?: TodoModel | undefined; }>
   constructor(private store: Store){
   }
 
   ngOnInit() {
     this.modelActive$ = this.store.select(ModalSelectors.modalActive);
+    this.editModelActive$ = this.store.select(ModalSelectors.editModalState);
+    this.editModelActive$.subscribe(active=> {
+      this.editModelActive = active.show
+    })
     this.modelActive$.subscribe(active => {
       this.modelActive = active
     })

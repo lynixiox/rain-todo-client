@@ -7,4 +7,9 @@ export class ModalSelectors{
     static modalActive(state: ModalStateModel): boolean{
         return state.showModal
     }
+
+    @Selector([ModalState])
+    static editModalState(state: ModalStateModel){
+        return state.showEditModal
+    }
 }

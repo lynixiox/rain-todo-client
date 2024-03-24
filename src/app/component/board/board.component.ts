@@ -7,8 +7,8 @@ import { CommonModule } from '@angular/common';
 import { CdkDragDrop, CdkDragMove, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import {DragDropModule} from "@angular/cdk/drag-drop"
 import { TodoCardComponent } from '../todo-card/todo-card.component';
-import { ToggleModalState } from '../../ngxs/action/modal-action';
-import { UpdateTaskState, UpdateTaskStatus } from '../../ngxs/action/todo-action';
+import { ToggleEditModalState, ToggleModalState } from '../../ngxs/action/modal-action';
+import { UpdateTask, UpdateTaskState, UpdateTaskStatus } from '../../ngxs/action/todo-action';
 @Component({
   selector: 'app-board',
   standalone: true,
@@ -51,25 +51,29 @@ export class BoardComponent {
   }
 
   openEditor(object: TodoModel){
+    this.store.dispatch(new ToggleEditModalState(object));
     console.log(object)
   }
   drop(event: CdkDragDrop<TodoModel[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-
+      //This is an expensive function// 
       transferArrayItem(event.previousContainer.data,
         event.container.data,
         event.previousIndex,
         event.currentIndex);
         this.todos.forEach(todo => {
             todo.status="TODO"
-        });
+            this.store.dispatch(new UpdateTask(todo))
+          });
         this.completed.forEach(complete => {
           complete.status="COMPLETED"
+          this.store.dispatch(new UpdateTask(complete))
         });
         this.inProgress.forEach(inProgress=>{
           inProgress.status="IN_PROGRESS"
+          this.store.dispatch(new UpdateTask(inProgress))
         })
         const newState: TodoStateModel = {
           todo: this.todos,

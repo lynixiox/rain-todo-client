@@ -39,6 +39,10 @@ export interface PaginationParams {
 
 export interface ModalStateModel{
     showModal: boolean
+    showEditModal: {
+        show :boolean,
+        todo?: TodoModel
+    }
 }
 
 export interface ModalModel{

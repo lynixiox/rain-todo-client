@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Action, State, StateContext, UpdateState, setValue } from "@ngxs/store";
 import { TodoModel, TodoStateModel } from "../../types";
-import { AddItemAction, GetTodos, SetActiveTodo, UpdateTaskState, UpdateTaskStatus } from "../action/todo-action";
+import { AddItemAction, GetTodos, SetActiveTodo, UpdateTask, UpdateTaskState, UpdateTaskStatus } from "../action/todo-action";
 import { TodoService } from "../../services/todo.service";
 import { tap } from "rxjs";
 import { response } from "express";
@@ -16,25 +16,30 @@ import {v4 as uuidv4} from 'uuid';
     defaults: {
         todo:[
             {
-                id: "int",
-                title:"Create a Todo App",
+                id: uuidv4.toString(),
+                title: "Create A Todo App",
                 status: "TODO"
             }
         ],
         completed:[
             {
-                id:"test1",
-                title: "Create The Backend",
-                status: "COMPLETED"
-            }
-        ],
-        inProgress:[
-            {
-                id: "test2",
+                id: uuidv4.toString(),
                 title: "Create The Database",
                 status: "IN_PROGRESS"
             }
         ],
+        inProgress:[
+            {
+                id: uuidv4.toString(),
+                title: "Create The Backend",
+                status: "COMPLETED"
+            }
+        ],
+        activeTodo: {
+            id: "inactive",
+            title: "",
+            status: "TODO"
+        }
     }
 })
 @Injectable()
@@ -122,21 +127,43 @@ export class TodoState {
 
     }
     
+    @Action(UpdateTask)
+    updateTask(ctx: StateContext<TodoStateModel>, action: UpdateTask){
+        let body ={ 
+            "id": action.todo.id,
+            "title": action.todo.title,
+            "status": action.todo.status
+        }
+        this.http.put<TodoModel>(`http://localhost:8080/api/v1/todos/update/${action.todo.id}`, body).subscribe(data => {
+            console.log(data)
+        })
+    }
     
     @Action(GetTodos)
     doGetTodos(ctx: StateContext<TodoStateModel>){
         return this.todoService.getTodos("http://localhost:8080/api/v1/todos/all", {page: 0, perPage: 10}).subscribe((todos)=> {
             const state = ctx.getState()
-
+            let completed: TodoModel[] =[];
+            let inProgress: TodoModel[]=[];
+            let tempTodo: TodoModel[]=[];
+            todos.forEach(todo => {
+                if(todo.status==="COMPLETED"){
+                    completed.push(todo);
+                }else if(todo.status==="IN_PROGRESS"){
+                    inProgress.push(todo)
+                }else{
+                    tempTodo.push(todo);
+                }
+            });
             ctx.setState({
                 ...state,
-                todo: todos,
+                todo: tempTodo,
+                inProgress: inProgress,
+                completed: completed
             })
         }
         )
     }
-    toggleItem(){
 
-    }
 
 }

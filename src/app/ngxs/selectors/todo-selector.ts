@@ -17,4 +17,9 @@ export class TodoSelectors{
     static inProgress(state: TodoStateModel): TodoModel[]{
         return state.inProgress
     }
+
+    @Selector([TodoState])
+    static activeTodo(state: TodoStateModel): TodoModel | undefined{
+        return state.activeTodo
+    }
 }
