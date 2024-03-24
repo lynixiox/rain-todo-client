@@ -1,9 +1,9 @@
 import { HttpContext, HttpHeaders, HttpParams } from "@angular/common/http";
 
 export interface TodoModel {
-    id?: string,
+    id: string,
     title: string,
-    status: 'todo' | 'inProgress' | 'completed'
+    status: 'TODO' | 'IN_PROGRESS' | 'COMPLETED'
 }
 
 export interface TodoStateModel {
@@ -44,3 +44,10 @@ export interface ModalStateModel{
 export interface ModalModel{
     showModel: boolean
 }
+
+export interface CreateTaskBody{
+    "title": string;
+    "status": string;
+}
+
+export type TaskStatus = 'TODO' | 'IN_PROGRESS' | 'COMPLETED'

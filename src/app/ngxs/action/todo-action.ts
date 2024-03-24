@@ -1,4 +1,4 @@
-import { TodoModel, TodoStateModel } from "../../types"
+import { TaskStatus, TodoModel, TodoStateModel } from "../../types"
 
 export class AddItemAction {
     static readonly type = "[TODO page] Add item"
@@ -16,7 +16,7 @@ export class GetTodos {
 
 export class UpdateTaskStatus{
     static readonly type = "[TODO page] Update Status of Task"
-    constructor(public id: string,public currentStatus: 'todo' | 'inProgress'| 'completed',  public newStatus: 'todo' | 'inProgress'| 'completed'){}
+    constructor(public id: string,public currentStatus: TaskStatus,  public newStatus:TaskStatus){}
 
 }
 

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { Observable } from 'rxjs';
-import { PaginationParams, TodoModel } from '../types';
+import { CreateTaskBody, PaginationParams, TodoModel } from '../types';
+import { HttpResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,10 @@ export class TodoService {
       params,
       responseType: 'json',
     });
+  }
+
+  createTask = (url: string, body: CreateTaskBody)=> {
+    return this.apiService.post(url, body);
   }
 
 

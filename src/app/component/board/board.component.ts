@@ -63,13 +63,13 @@ export class BoardComponent {
         event.previousIndex,
         event.currentIndex);
         this.todos.forEach(todo => {
-            todo.status="todo"
+            todo.status="TODO"
         });
         this.completed.forEach(complete => {
-          complete.status="completed"
+          complete.status="COMPLETED"
         });
         this.inProgress.forEach(inProgress=>{
-          inProgress.status="inProgress"
+          inProgress.status="IN_PROGRESS"
         })
         const newState: TodoStateModel = {
           todo: this.todos,

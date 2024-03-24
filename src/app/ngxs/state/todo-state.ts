@@ -7,6 +7,9 @@ import { tap } from "rxjs";
 import { response } from "express";
 import { patch, updateItem } from "@ngxs/store/operators";
 import { HttpClient } from "@angular/common/http";
+import {v4 as uuidv4} from 'uuid';
+
+
 
 @State<TodoStateModel>({
     name: "tasks",
@@ -15,21 +18,21 @@ import { HttpClient } from "@angular/common/http";
             {
                 id: "int",
                 title:"Create a Todo App",
-                status: "todo"
+                status: "TODO"
             }
         ],
         completed:[
             {
                 id:"test1",
                 title: "Create The Backend",
-                status: "completed"
+                status: "COMPLETED"
             }
         ],
         inProgress:[
             {
                 id: "test2",
                 title: "Create The Database",
-                status: "inProgress"
+                status: "IN_PROGRESS"
             }
         ],
     }
@@ -42,8 +45,10 @@ export class TodoState {
         
         const {name} = action
         const state = ctx.getState()
+        const id = uuidv4();
         const todoItem: TodoModel = {
-            status:'todo',
+            id: id.toString(),
+            status:'TODO',
             title: name
         }
 
@@ -53,6 +58,7 @@ export class TodoState {
         })
 
         let body = {
+            "id": id.toString(),
             "title": name,
             "status": "TODO"
         }
@@ -60,7 +66,6 @@ export class TodoState {
             console.log(data)
         })
         
-        console.log(ctx.getState());
     }
 
     @Action(UpdateTaskStatus)
@@ -68,7 +73,7 @@ export class TodoState {
         
         const {currentStatus} = action
 
-        if(currentStatus == 'todo'){
+        if(currentStatus == 'TODO'){
             ctx.setState(
                 patch<TodoStateModel>({
                     todo: updateItem(
@@ -77,7 +82,7 @@ export class TodoState {
                     )
                 })
             )
-        }else if(currentStatus == 'inProgress'){
+        }else if(currentStatus == 'IN_PROGRESS'){
             ctx.setState(
                 patch<TodoStateModel>({
                     inProgress: updateItem(
